@@ -23,7 +23,7 @@ defmodule Recurly.Mixfile do
 
   defp deps do
     [
-      {:httpoison, "~> 0.9"},
+      {:httpoison, "~> 1.4"},
       {:sweet_xml, "~> 0.6.1"},
       {:exml, "~> 0.1"},
       {:xml_builder, "~> 0.1"},
