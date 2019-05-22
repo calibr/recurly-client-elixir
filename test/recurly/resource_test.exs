@@ -200,6 +200,27 @@ defmodule Recurly.ResourceTest do
     assert my_resource.a_float == nil
   end
 
+  test "Resource.delete deletes the record", %{bypass: bypass} do
+    resource_xml = """
+      <my_resource href="#{endpoint(bypass, "/my_resources/1234")}">
+        <a_string>String</a_string>
+        <an_integer type="integer">42</an_integer>
+        <a_float>3.14</a_float>
+      </my_resource>
+    """
+
+    resource = XML.Parser.parse(%MyResource{}, resource_xml, false)
+
+    Bypass.expect(bypass, fn conn ->
+      assert conn.method == "DELETE"
+      assert conn.request_path == "/my_resources/1234"
+
+      Plug.Conn.resp(conn, 204, "")
+    end)
+
+    :ok = Resource.delete(resource, endpoint(bypass, "/my_resources/1234"))
+  end
+
   defp endpoint(bypass, path) do
     "http://localhost:#{bypass.port}#{path}"
   end

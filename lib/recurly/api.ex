@@ -46,6 +46,10 @@ defmodule Recurly.API do
   end
   defp decompress(response), do: response
 
+  defp handle_response({:ok, %Response{status_code: 204, headers: headers}}) do
+    headers = Enum.into(headers, %{})
+    {:ok, headers}
+  end
   defp handle_response({:ok, %Response{status_code: code, body: xml_string, headers: headers}}) when code >= 200 and code < 400 do
     headers = Enum.into(headers, %{})
     {:ok, xml_string, headers}

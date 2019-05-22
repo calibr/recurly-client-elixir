@@ -202,6 +202,31 @@ defmodule Recurly.Account do
     Resource.update(account, changeset)
   end
 
+
+  @doc """
+  Closes an account from a struct
+
+  ## Parameters
+
+  - `account` account resource struct
+
+  ## Examples
+
+  ```
+  alias Recurly.NotFoundError
+
+  case Recurly.Account.delete(account) do
+    :ok ->
+      # Found the account
+    {:error, %NotFoundError{}} ->
+      # 404 account was not found
+  end
+  ```
+  """
+  def delete(account = %Account{account_code: account_code}) do
+    Resource.delete(account, path(account_code))
+  end
+
   @doc """
   Generates the path to an account given the account code
 
