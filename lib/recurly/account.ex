@@ -223,8 +223,8 @@ defmodule Recurly.Account do
   end
   ```
   """
-  def delete(account = %Account{account_code: account_code}) do
-    Resource.delete(account, path(account_code))
+  def delete(account_code) do
+    Resource.delete(%Account{}, path(account_code))
   end
 
   @doc """
