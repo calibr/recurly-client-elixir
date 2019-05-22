@@ -218,7 +218,7 @@ defmodule Recurly.ResourceTest do
       Plug.Conn.resp(conn, 204, "")
     end)
 
-    {:ok, headers} = Resource.delete(resource, endpoint(bypass, "/my_resources/1234"))
+    :ok = Resource.delete(resource, endpoint(bypass, "/my_resources/1234"))
   end
 
   defp endpoint(bypass, path) do
