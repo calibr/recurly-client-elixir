@@ -34,6 +34,7 @@ defmodule Recurly.API do
     gzipped = Enum.any?(response.headers, fn (kv) ->
       case kv do
         {"Content-Encoding", "gzip"} -> true
+        {"content-encoding", "gzip"} -> true
         _ -> false
       end
     end)
